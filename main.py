@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QSystemTrayIcon
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtGui import QIcon
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
