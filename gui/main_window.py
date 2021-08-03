@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
         self.loadGui()
 
     def create_tray_actions(self):
-        self.tray.add_action("Preference", self.show)
+        self.tray.add_action("Show window ", self.show)
         self.tray.add_separator()
         self.tray.add_action("Quit", self.quit_app)
 
@@ -23,8 +23,5 @@ class MainWindow(QMainWindow):
 
     @pyqtSlot()
     def quit_app(self):
-        if self.daemon is not None:
-            self.daemon.should_exit = True
-            self.daemon.join()
         QCoreApplication.instance().quit()
 
