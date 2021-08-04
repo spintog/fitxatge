@@ -1,3 +1,4 @@
+from os import setregid
 import sqlite3
 
 
@@ -96,3 +97,16 @@ class DatabaseManager():
             return True
         except sqlite3.Error as error:
             return error
+
+    def check_database(self):
+        ''' Function to check database status'''
+        if not self.database_file.exists():
+            return "NotFound"
+        
+        self.create_connection()
+        result = self.fetch_settings()
+        self.close_connection()
+        if not result:
+            return "Empty"
+        
+        return "Ok"
