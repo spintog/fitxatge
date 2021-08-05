@@ -1,6 +1,3 @@
-from os import setregid
-
-from PyQt5.QtGui import QIcon
 from params import *
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication
@@ -15,7 +12,7 @@ class SystemTray(QWidget):
         super(SystemTray, self).__init__(parent)
         self.tray_icon_menu = QMenu(self)
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon(str(img_dir.joinpath("window_icon.png").resolve())))
+        self.set_tray_icon("window")
         self.tray_icon.setContextMenu(self.tray_icon_menu)
 
     def add_action(self, name, triggered_action):
@@ -31,3 +28,15 @@ class SystemTray(QWidget):
 
     def notify(self, title, message):
         self.tray_icon.showMessage(title, message, "Test")
+    
+    def set_tray_icon(self, status):
+        #Change systray icon 
+        if status == "inoffice":
+            icon = "in_office.png"
+        elif status == "outoffice":
+            icon = "out_office.png"
+        else:
+            icon = "window_icon.png"
+        
+        self.tray_icon.setIcon(QIcon(str(img_dir.joinpath(icon).resolve())))
+
