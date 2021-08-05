@@ -104,7 +104,7 @@
     <property name="title">
      <string>Ajuda</string>
     </property>
-    <addaction name="quantaMenu"/>
+    <addaction name="aboutMenu"/>
    </widget>
    <addaction name="menuArxiu"/>
    <addaction name="menuOpcions"/>
@@ -133,7 +133,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="quantaMenu">
+  <action name="aboutMenu">
    <property name="text">
     <string>Quant a...</string>
    </property>
