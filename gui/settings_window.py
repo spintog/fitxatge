@@ -40,6 +40,6 @@ class SettingsWindow(QWidget):
         update_result = self.database_manager.save_settings(settings)
         self.database_manager.close_connection()
         if update_result == True:
-            QMessageBox.information(self, 'Informació', 'URL: {} / Token: {} / ID: {}'.format(settings['server_url'], settings['user_token'], settings['user_id']), QMessageBox.Ok | QMessageBox.Cancel)
+            QMessageBox.information(self, 'Save Settings', 'Settings saved correctly', QMessageBox.Ok | QMessageBox.Cancel)
         else:
             QMessageBox.critical(self, 'Error', "Error al guardar els canvis: {}".format(update_result), QMessageBox.Ok | QMessageBox.Cancel)
