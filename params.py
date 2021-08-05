@@ -11,7 +11,7 @@ elif system == 'Windows':
     conf_dir = Path.home().joinpath("AppData/Local/Microblau/Fitxatge")
 
 # Define and verify if db_file exists
-database_file = conf_dir.joinpath('fitxatge.db2')
+database_file = conf_dir.joinpath('fitxatge.db')
 
 # define and verify program dirs
 gui_dir = Path('.').joinpath('gui')
