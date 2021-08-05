@@ -1,4 +1,3 @@
-from os import setregid
 import sqlite3
 
 

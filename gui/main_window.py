@@ -1,7 +1,6 @@
 from params import *
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.uic import loadUi
 from .system_tray import SystemTray
