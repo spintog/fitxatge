@@ -20,13 +20,15 @@ class MainWindow(QMainWindow):
         self.loadGui()
 
     def create_tray_actions(self):
-        self.tray.add_action("Show window ", self.show)
+        self.tray.add_action("Canviar estat", self.change_status)
+        self.tray.add_action("Mostrar finestra", self.show)
         self.tray.add_separator()
         self.tray.add_action("Quit", self.quit_app)
 
     def loadGui(self):
         loadUi(gui_dir.joinpath("main.ui"), self)
         self.check_status()
+        self.signButton.clicked.connect(self.change_status)
         self.prefMenu.triggered.connect(SettingsWindow)
         self.aboutMenu.triggered.connect(AboutWindow)
         self.exitMenu.triggered.connect(self.quit_app)
@@ -49,9 +51,9 @@ class MainWindow(QMainWindow):
             SettingsWindow()
         
         # Check status server
-        sign_manager = SignManager(config)
-        if sign_manager.get_server_status():
-            if sign_manager.get_status():
+        self.sign_manager = SignManager(config)
+        if self.sign_manager.get_server_status():
+            if self.sign_manager.get_status():
                 self.statusLabel.setText("Treballant")
                 self.statusLabel.setStyleSheet("background-color: Red")
                 self.statusLabel.setStatusTip("En horari laboral")
@@ -64,14 +66,13 @@ class MainWindow(QMainWindow):
                 self.signButton.setText("Fitxar entrada")
                 self.tray.set_tray_icon("outoffice")
 
-
     def change_status(self):
-        sign_status = self.sign.change_status()
+        sign_status = self.sign_manager.change_status()
         if sign_status:
-            QMessageBox.information(self, 'Informació', 'Fitxatge realitzat correctament.', QMessageBox.Ok | QMessageBox.Ok)
+            QMessageBox.information(self, 'Informació', 'Fitxatge realitzat correctament.', QMessageBox.Ok | QMessageBox.Cancel)
             self.check_status()
         else:
-            QMessageBox.critical(self, 'Error', "Error en el fitxatge: {}".format(sign_status), QMessageBox.Ok | QMessageBox.Ok)
+            QMessageBox.critical(self, 'Error', "Error en el fitxatge: {}".format(sign_status), QMessageBox.Ok | QMessageBox.Cancel)
 
     @pyqtSlot()
     def quit_app(self):
