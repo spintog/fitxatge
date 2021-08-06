@@ -123,9 +123,9 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="timeType">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -148,9 +148,9 @@
    <property name="title">
     <string>Horari</string>
    </property>
-   <widget class="QTimeEdit" name="timeEdit">
+   <widget class="QTimeEdit" name="inMorningTime">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -160,10 +160,24 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="maximumTime">
+     <time>
+      <hour>10</hour>
+      <minute>15</minute>
+      <second>0</second>
+     </time>
+    </property>
+    <property name="minimumTime">
+     <time>
+      <hour>7</hour>
+      <minute>45</minute>
+      <second>0</second>
+     </time>
+    </property>
    </widget>
-   <widget class="QTimeEdit" name="timeEdit_2">
+   <widget class="QTimeEdit" name="outMorningTime">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -172,6 +186,20 @@
       <width>118</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="maximumTime">
+     <time>
+      <hour>14</hour>
+      <minute>0</minute>
+      <second>0</second>
+     </time>
+    </property>
+    <property name="minimumTime">
+     <time>
+      <hour>12</hour>
+      <minute>45</minute>
+      <second>0</second>
+     </time>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -187,9 +215,9 @@
      <string>Horari matí</string>
     </property>
    </widget>
-   <widget class="QTimeEdit" name="timeEdit_3">
+   <widget class="QTimeEdit" name="outAfternootTime">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -198,6 +226,20 @@
       <width>118</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="maximumTime">
+     <time>
+      <hour>20</hour>
+      <minute>0</minute>
+      <second>0</second>
+     </time>
+    </property>
+    <property name="minimumTime">
+     <time>
+      <hour>17</hour>
+      <minute>0</minute>
+      <second>0</second>
+     </time>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -213,9 +255,9 @@
      <string>Horari Tarda</string>
     </property>
    </widget>
-   <widget class="QTimeEdit" name="timeEdit_4">
+   <widget class="QTimeEdit" name="inAfternoorTime">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -224,6 +266,23 @@
       <width>118</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="maximumTime">
+     <time>
+      <hour>16</hour>
+      <minute>0</minute>
+      <second>0</second>
+     </time>
+    </property>
+    <property name="minimumTime">
+     <time>
+      <hour>15</hour>
+      <minute>0</minute>
+      <second>0</second>
+     </time>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

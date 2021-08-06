@@ -1,4 +1,5 @@
-from params import *
+from params import database_file
+from params import gui_dir
 from database_manager.database_manager import DatabaseManager
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QWidget
@@ -11,7 +12,7 @@ class SettingsWindow(QWidget):
         self.database_manager = DatabaseManager(database_file)
         self.database_manager.create_connection()
         user_settings = self.database_manager.fetch_settings()
-        
+
         if user_settings:
             self.user_id = user_settings[0]
             self.server_url = user_settings[1]
@@ -20,7 +21,7 @@ class SettingsWindow(QWidget):
             self.server_url = None
             self.user_token = None
             self.user_id = None
-            
+
         self.loadUI()
 
     def loadUI(self):
@@ -29,7 +30,7 @@ class SettingsWindow(QWidget):
         self.settingsWindow.tokenInput.setText(self.user_token)
         self.settingsWindow.buttonBox.accepted.connect(self.save_settings)
         self.settingsWindow.exec()
-    
+
     def save_settings(self):
         settings = {
             "server_url": self.settingsWindow.urlInput.text(),
@@ -39,7 +40,15 @@ class SettingsWindow(QWidget):
 
         update_result = self.database_manager.save_settings(settings)
         self.database_manager.close_connection()
-        if update_result == True:
-            QMessageBox.information(self, 'Save Settings', 'Settings saved correctly', QMessageBox.Ok | QMessageBox.Cancel)
+        if update_result is True:
+            QMessageBox.information(
+                self,
+                'Save Settings',
+                'Settings saved correctly',
+                QMessageBox.Ok | QMessageBox.Cancel)
         else:
-            QMessageBox.critical(self, 'Error', "Error al guardar els canvis: {}".format(update_result), QMessageBox.Ok | QMessageBox.Cancel)
+            QMessageBox.critical(
+                self,
+                'Error',
+                'Error al guardar els canvis: {}'.format(update_result),
+                QMessageBox.Ok | QMessageBox.Cancel)

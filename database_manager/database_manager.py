@@ -37,14 +37,14 @@ class DatabaseManager():
             return True
         except sqlite3.Error as error:
             return error
-    
+
     def close_connection(self):
         """
         Close database connection
         """
         if self.db_conn is not None:
             self.db_conn.close()
-    
+
     def initialitze_database(self):
         try:
             db_cursor = self.db_conn.cursor()
@@ -54,13 +54,12 @@ class DatabaseManager():
                             url	TEXT NOT NULL,
                             token TEXT NOT NULL);''')
 
-
             # Save (commit) the changes
             self.db_conn.commit()
             return True
         except sqlite3.Error as error:
             return error
-    
+
     def fetch_settings(self):
         """
         Fetch user settings
@@ -74,7 +73,7 @@ class DatabaseManager():
             return user_settings
         else:
             return False
-    
+
     def save_settings(self, settings):
         if settings['user_id']:
             query = 'UPDATE {} set url="{}", token="{}" where id=={}'.format(
@@ -101,11 +100,11 @@ class DatabaseManager():
         ''' Function to check database status'''
         if not self.database_file.exists():
             return "NotFound"
-        
+
         self.create_connection()
         result = self.fetch_settings()
         self.close_connection()
         if not result:
             return "Empty"
-        
+
         return "Ok"

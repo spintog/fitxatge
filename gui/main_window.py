@@ -1,5 +1,5 @@
-from params import *
-from PyQt5.QtGui import QIcon
+from params import gui_dir
+from params import database_file
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QMessageBox
@@ -10,6 +10,7 @@ from database_manager.database_manager import DatabaseManager
 from .system_tray import SystemTray
 from .settings_window import SettingsWindow
 from .about_window import AboutWindow
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -32,7 +33,7 @@ class MainWindow(QMainWindow):
         self.prefMenu.triggered.connect(SettingsWindow)
         self.aboutMenu.triggered.connect(AboutWindow)
         self.exitMenu.triggered.connect(self.quit_app)
-    
+
     def check_status(self):
         # Obtain user settings from database
         self.database_manager = DatabaseManager(database_file)
@@ -47,9 +48,13 @@ class MainWindow(QMainWindow):
                 "base_url": self.server_url
             }
         else:
-            QMessageBox.critical(self, 'Error', "No user's settings found. Verify settings.", QMessageBox.Ok | QMessageBox.Cancel)
+            QMessageBox.critical(
+                self,
+                'Error',
+                'No user\'s settings found. Verify parameters.',
+                QMessageBox.Ok | QMessageBox.Cancel)
             SettingsWindow()
-        
+
         # Check status server
         self.sign_manager = SignManager(config)
         if self.sign_manager.get_server_status():
@@ -69,10 +74,18 @@ class MainWindow(QMainWindow):
     def change_status(self):
         sign_status = self.sign_manager.change_status()
         if sign_status:
-            QMessageBox.information(self, 'Informació', 'Fitxatge realitzat correctament.', QMessageBox.Ok | QMessageBox.Cancel)
+            QMessageBox.information(
+                self,
+                'Informació',
+                'Fitxatge realitzat correctament.',
+                QMessageBox.Ok | QMessageBox.Cancel)
             self.check_status()
         else:
-            QMessageBox.critical(self, 'Error', "Error en el fitxatge: {}".format(sign_status), QMessageBox.Ok | QMessageBox.Cancel)
+            QMessageBox.critical(
+                self,
+                'Error',
+                'Error en el fitxatge: {}'.format(sign_status),
+                QMessageBox.Ok | QMessageBox.Cancel)
 
     @pyqtSlot()
     def quit_app(self):

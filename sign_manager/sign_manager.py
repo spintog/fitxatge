@@ -1,6 +1,7 @@
 import requests
 from lxml import html
 
+
 class SignManager():
     """
     A class used manage user's time work.
@@ -21,9 +22,9 @@ class SignManager():
     get_status
         get current user's status
     """
-    
+
     def __init__(self, config):
-        
+
         """
         Constructor with config parametres received in a dictionary
 
@@ -42,18 +43,18 @@ class SignManager():
     @property
     def token(self):
         return self._token
-    
+
     @token.setter
     def token(self, user_token):
         if user_token:
             self._token = user_token
         else:
-            raise ValueError("User's token not found. Verify config parameters")
+            raise ValueError("User's token not found. Verify parameters")
 
     @property
     def base_url(self):
         return self.base_url
-    
+
     @base_url.setter
     def base_url(self, base_url):
         if base_url:
@@ -66,13 +67,14 @@ class SignManager():
         Method to find user's zid. Necessari to make queries.
         """
 
-        r = self.session.get(self._base_url+"/marcaje.php?access-token={}".format(self._token))
+        r = self.session.get(
+            self._base_url+'/marcaje.php?access-token={}'.format(self._token))
         tree = html.fromstring(r.content)
         data = tree.xpath("//a[@data-zid]")
 
         for element in data:
             zid = element.get("data-zid")
-        
+
         if zid:
             return zid
         else:
@@ -90,7 +92,8 @@ class SignManager():
         else:
             return ValueError("ZID not found")
 
-        r = self.session.post(self._base_url+"/estado-actual.php", data = parameters)
+        r = self.session.post(
+            self._base_url+"/estado-actual.php", data=parameters)
         if "AUSENTE" in r.text:
             return False
         else:
@@ -103,7 +106,7 @@ class SignManager():
         current_status = self.get_status()
 
         zid = self.get_zid()
-        if zid: 
+        if zid:
             parameters = {
                 "access-token": self._token,
                 "zid": zid,
@@ -112,7 +115,7 @@ class SignManager():
         else:
             return "ZID not found"
 
-        r = self.session.post(self._base_url+"/fichaje.php", data = parameters)
+        r = self.session.post(self._base_url+"/fichaje.php", data=parameters)
         if self.get_status() != current_status:
             return True
         else:
@@ -124,7 +127,10 @@ class SignManager():
         """
 
         try:
-            self.session.get(self._base_url+"/marcaje.php?access-token={}".format(self._token), timeout=5)
+            self.session.get(
+                self._base_url+'/marcaje.php?access-token={}'.format(
+                    self._token),
+                timeout=5)
             return True
         except requests.exceptions.Timeout:
             return False
