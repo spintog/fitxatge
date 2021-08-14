@@ -52,7 +52,11 @@ class DatabaseManager():
             db_cursor.execute('''CREATE TABLE IF NOT EXISTS settings (
                             id integer PRIMARY KEY,
                             url	TEXT NOT NULL,
-                            token TEXT NOT NULL);''')
+                            token TEXT NOT NULL,
+                            inmorning INTEGER,
+                            outmorning INTEGER,
+                            inafternoon INTEGER,
+                            outafternoon INTEGER);''')
 
             # Save (commit) the changes
             self.db_conn.commit()
@@ -76,11 +80,18 @@ class DatabaseManager():
 
     def save_settings(self, settings):
         if settings['user_id']:
-            query = 'UPDATE {} set url="{}", token="{}" where id=={}'.format(
-                self.table_settings, settings['server_url'],
-                settings['user_token'],
-                settings['user_id']
-            )
+            query = 'UPDATE {} set url="{}", token="{}",' \
+                    'inmorning="{}", outmorning="{}",' \
+                    'inafternoon="{}", outafternoon="{}" where id=={}'.format(
+                        self.table_settings,
+                        settings['server_url'],
+                        settings['user_token'],
+                        settings['in_morning'],
+                        settings['out_morning'],
+                        settings['in_afternoon'],
+                        settings['out_afternoon'],
+                        settings['user_id']
+                    )
         else:
             query = 'INSERT INTO {}(url, token) values ("{}", "{}")'.format(
                 self.table_settings,

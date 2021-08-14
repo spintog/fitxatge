@@ -190,7 +190,7 @@
     <property name="maximumTime">
      <time>
       <hour>14</hour>
-      <minute>0</minute>
+      <minute>45</minute>
       <second>0</second>
      </time>
     </property>
@@ -215,7 +215,7 @@
      <string>Horari matí</string>
     </property>
    </widget>
-   <widget class="QTimeEdit" name="outAfternootTime">
+   <widget class="QTimeEdit" name="outAfternoonTime">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -255,7 +255,7 @@
      <string>Horari Tarda</string>
     </property>
    </widget>
-   <widget class="QTimeEdit" name="inAfternoorTime">
+   <widget class="QTimeEdit" name="inAfternoonTime">
     <property name="enabled">
      <bool>true</bool>
     </property>
