@@ -1,10 +1,11 @@
-from params import *
+from params import img_dir
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QAction
 from PyQt5.QtWidgets import QMenu
 from PyQt5.QtWidgets import QSystemTrayIcon
 from PyQt5.QtWidgets import QWidget
+
 
 class SystemTray(QWidget):
 
@@ -16,7 +17,11 @@ class SystemTray(QWidget):
         self.tray_icon.setContextMenu(self.tray_icon_menu)
 
     def add_action(self, name, triggered_action):
-        action = QAction(QCoreApplication.translate("Exit", name), self, triggered = triggered_action)
+        action = QAction(
+            QCoreApplication.translate("Exit", name),
+            self,
+            triggered=triggered_action
+            )
         self.tray_icon_menu.addAction(action)
 
     def add_separator(self):
@@ -27,16 +32,15 @@ class SystemTray(QWidget):
         self.tray_icon.show()
 
     def notify(self, title, message):
-        self.tray_icon.showMessage(title, message, "Test")
-    
+        self.tray_icon.showMessage(title, message)
+
     def set_tray_icon(self, status):
-        #Change systray icon 
+        # Change systray icon
         if status == "inoffice":
             icon = "in_office.png"
         elif status == "outoffice":
             icon = "out_office.png"
         else:
             icon = "window_icon.png"
-        
-        self.tray_icon.setIcon(QIcon(str(img_dir.joinpath(icon).resolve())))
 
+        self.tray_icon.setIcon(QIcon(str(img_dir.joinpath(icon).resolve())))

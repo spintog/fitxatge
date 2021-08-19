@@ -87,6 +87,9 @@ class MainWindow(QMainWindow):
                 'Error en el fitxatge: {}'.format(sign_status),
                 QMessageBox.Ok | QMessageBox.Cancel)
 
+    def show_notifications(self):
+        self.tray.notify("Titol", "Missatge")
+
     @pyqtSlot()
     def quit_app(self):
         QCoreApplication.instance().quit()

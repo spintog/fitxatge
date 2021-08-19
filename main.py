@@ -6,9 +6,32 @@ from params import img_dir
 from database_manager.database_manager import DatabaseManager
 from gui.main_window import MainWindow
 from gui.settings_window import SettingsWindow
+from PyQt5.QtCore import QTime
+from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QSystemTrayIcon
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QApplication
+
+
+def checkTime():
+    database_manager = DatabaseManager(database_file)
+    database_manager.create_connection()
+    user_settings = database_manager.fetch_settings()
+    database_manager.close_connection()
+    in_morning = user_settings[3]
+    out_morning = user_settings[4]
+    in_afternoon = user_settings[5]
+    out_afternoon = user_settings[6]
+    current_time = QTime.msecsSinceStartOfDay(QTime.currentTime())
+
+    if current_time >= in_morning and current_time < in_morning+120000:
+        window.tray.notify("Fitxar", "Temps de fitxar entrada")
+    elif current_time >= out_morning and current_time < out_morning+120000:
+        window.tray.notify("Fitxar", "Temps de fitxar sortida")
+    elif current_time >= in_afternoon and current_time < in_afternoon+120000:
+        window.tray.notify("Fitxar", "Temps de fitxar entrada")
+    elif current_time >= out_afternoon and current_time < out_afternoon+120000:
+        window.tray.notify("Fitxar", "Temps de fitxar sortida")
 
 
 def check_base_dirs(dir):
@@ -74,5 +97,11 @@ if __name__ == "__main__":
 
     QApplication.setQuitOnLastWindowClosed(False)
     window = MainWindow()
+
+    # Timer to check user's time work
+    timer = QTimer()
+    timer.timeout.connect(checkTime)
+    timer.start(60000)
+
     window.show()
     sys.exit(app.exec_())
