@@ -162,15 +162,15 @@
     </property>
     <property name="maximumTime">
      <time>
-      <hour>10</hour>
-      <minute>15</minute>
+      <hour>11</hour>
+      <minute>59</minute>
       <second>0</second>
      </time>
     </property>
     <property name="minimumTime">
      <time>
-      <hour>7</hour>
-      <minute>45</minute>
+      <hour>0</hour>
+      <minute>0</minute>
       <second>0</second>
      </time>
     </property>
@@ -190,14 +190,14 @@
     <property name="maximumTime">
      <time>
       <hour>14</hour>
-      <minute>45</minute>
+      <minute>59</minute>
       <second>0</second>
      </time>
     </property>
     <property name="minimumTime">
      <time>
-      <hour>12</hour>
-      <minute>45</minute>
+      <hour>13</hour>
+      <minute>0</minute>
       <second>0</second>
      </time>
     </property>
@@ -227,10 +227,13 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="correctionMode">
+     <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+    </property>
     <property name="maximumTime">
      <time>
       <hour>20</hour>
-      <minute>0</minute>
+      <minute>59</minute>
       <second>0</second>
      </time>
     </property>
@@ -269,8 +272,8 @@
     </property>
     <property name="maximumTime">
      <time>
-      <hour>16</hour>
-      <minute>0</minute>
+      <hour>15</hour>
+      <minute>59</minute>
       <second>0</second>
      </time>
     </property>
@@ -282,7 +285,7 @@
      </time>
     </property>
     <property name="calendarPopup">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
    </widget>
   </widget>

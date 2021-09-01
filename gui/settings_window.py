@@ -72,8 +72,8 @@ class SettingsWindow(QWidget):
         if update_result is True:
             QMessageBox.information(
                 self,
-                'Save Settings',
-                'Settings saved correctly',
+                'Guardar canvis',
+                'Canvis guardats correctament',
                 QMessageBox.Ok | QMessageBox.Cancel)
         else:
             QMessageBox.critical(

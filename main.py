@@ -11,6 +11,7 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QSystemTrayIcon
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QApplication
+from sign_manager.sign_manager import SignManager
 
 
 def checkTime():
@@ -18,11 +19,19 @@ def checkTime():
     database_manager.create_connection()
     user_settings = database_manager.fetch_settings()
     database_manager.close_connection()
+    server_url = user_settings[1]
+    user_token = user_settings[2]
     in_morning = user_settings[3]
     out_morning = user_settings[4]
     in_afternoon = user_settings[5]
     out_afternoon = user_settings[6]
     current_time = QTime.msecsSinceStartOfDay(QTime.currentTime())
+    config = {
+        "token": user_token,
+        "base_url": server_url
+    }
+    sign_manager = SignManager(config)
+    status = sign_manager.get_status()
 
     if current_time >= in_morning and current_time < in_morning+120000:
         window.tray.notify("Fitxar", "Temps de fitxar entrada")
@@ -32,6 +41,15 @@ def checkTime():
         window.tray.notify("Fitxar", "Temps de fitxar entrada")
     elif current_time >= out_afternoon and current_time < out_afternoon+120000:
         window.tray.notify("Fitxar", "Temps de fitxar sortida")
+
+    if current_time >= in_morning and not status:
+        window.tray.notify("Fitxat", "No has fitxat l'entrada encara.")
+    elif current_time >= out_morning and status:
+        window.tray.notify("Fitxat", "No has fitxat la sortida encara.")
+    elif current_time >= in_afternoon and not status:
+        window.tray.notify("Fitxat", "No has fitxat l'entrada encara.")
+    elif current_time >= out_afternoon and status:
+        window.tray.notify("Fitxat", "No has fitxat la sortida encara.")
 
 
 def check_base_dirs(dir):
