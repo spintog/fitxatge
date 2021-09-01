@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Base settings
 system = platform.system()
+base_dir = Path.cwd()
 
 # Define config directory based on user's operating system
 if system == 'Linux':
@@ -15,5 +16,5 @@ conf_dir.mkdir(parents=True, exist_ok=True)
 database_file = conf_dir.joinpath('fitxatge.db')
 
 # define and verify program dirs
-gui_dir = Path('.').joinpath('gui')
-img_dir = Path('.').joinpath('images')
+gui_dir = Path(base_dir).joinpath('gui')
+img_dir = Path(base_dir).joinpath('images')
